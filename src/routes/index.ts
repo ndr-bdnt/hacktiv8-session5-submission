@@ -1,8 +1,34 @@
-import express from 'express';
-const router = express.Router();
+import express from 'express'
+import generateContent from '../controller/generateContentController.ts'
+import multer from 'multer'
+const upload = multer()
 
-router.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+const router = express.Router()
 
-export default router;
+router.post('/generate-text', generateContent.generateText)
+
+router.post(
+    '/generate-image',
+    upload.single('file'),
+    generateContent.generateImage
+)
+
+router.post(
+    '/generate-document',
+    upload.single('file'),
+    generateContent.generateDocument
+)
+
+router.post(
+    '/generate-audio',
+    upload.single('file'),
+    generateContent.generateAudio
+)
+
+router.post(
+    '/generate-from-file',
+    upload.single('file'),
+    generateContent.generateTextFromFile
+)
+
+export default router
