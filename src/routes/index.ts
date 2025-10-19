@@ -31,4 +31,9 @@ router.post(
     generateContent.generateTextFromFile
 )
 
+router.post(
+    '/chat',
+    generateContent.chat
+)
+
 export default router

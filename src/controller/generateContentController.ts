@@ -58,6 +58,20 @@ const generateContent = {
             handleError(res, error, 'text')
         }
     },
+    chat: async (req: Request, res: Response) => {  
+        try {
+            const {role, prompt } = req.body
+             const responseAI = await AI.models.generateContent({
+                model: MODEL,
+                contents: prompt,
+            })
+            res.json({
+                role: 'BOT',
+                message: textExtractor(responseAI) })
+        } catch (error) {
+            handleError(res, error, 'chat')
+        }
+    },
     generateImage: (req: Request, res: Response) =>
         generateWithFileAndPrompt(req, res, 'image'),
     generateAudio: (req: Request, res: Response) =>
